@@ -68,6 +68,17 @@ public class UnpackDriver {
 			System.err.println("Caught3: " + ex.getMessage());
 			ex.printStackTrace();
 		}
+		// Sign detection checks
+		System.out.println("SIGN01:/Neg: " + Unpacker.isPositive(tbaa));
+		System.out.println("SIGN02:/Pos: " + Unpacker.isPositive(tbac));
+		System.out.println("SIGN03:/Pos: " + Unpacker.isPositive(tbacf));
+		try {
+			System.out.println("SIGN03:/Ex: " + Unpacker.isPositive(tbab));
+		} catch(IllegalArgumentException ex) {
+			System.err.println("Expected exception!");
+			System.err.println("Caught4: " + ex.getMessage());
+			ex.printStackTrace();
+		}
 	}
 
 	// Test data
@@ -90,6 +101,10 @@ public class UnpackDriver {
 	};
 
 	private static byte[] tbac = {
+		(byte)0x12, (byte)0x34, (byte)0x5f,
+	};
+	
+	private static byte[] tbacf = {
 		(byte)0x12, (byte)0x34, (byte)0x5f,
 	};
 

@@ -1,13 +1,16 @@
 /**
  * This class contains utility methods for converting byte arrays
- * (or slices of byte arrays) to <code>String</code>s representing
- * the numeric value contained in the array or slice.  The input 
- * arrays are assumed to be valid representations of packed decimal
- * data, including a low order sign nibble.  The sign nibble is assumed
- * to signify a positive integral value.
- * 
+ * (or slices of byte arrays) to <code>String</code> objects representing
+ * the numeric value contained in the array or slice.
+ * <br /><br /> 
+ * The input byte arrays or slices are assumed to be <em>valid 
+ * representations of packed decimal
+ * data</em>, including a low order sign nibble.  
+ * <br /><br />
+ * The sign nibble is assumed to signify a positive integral value.
+ * <hr />
  * This class is thread safe.
- * 
+ * <hr />
  * @author Guy Allard
  * @since 2008.02.09
  */
@@ -20,6 +23,9 @@ public final class Unpacker {
 		"000000000000000000000000000000000000000000000000000000000000000000000000000000"
 		;
 	/**
+	 * Return a <code>String</code> representing the numeric value of the
+	 * input packed decimal byte array.
+	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
@@ -33,7 +39,10 @@ public final class Unpacker {
 		return getDecString(packedDecimal, 0, packedDecimal.length);
 	}
 	/**
-	 * 
+	 * Return a <code>String</code> representing the numeric value of the
+	 * input packed decimal byte array, truncated or expanded to the 
+	 * requested precision.
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
@@ -48,6 +57,9 @@ public final class Unpacker {
 		return precisionPad(ret, precision);		
 	}
 	/**
+	 * Return a <code>String</code> representing the numeric value of the
+	 * input packed decimal byte array, start byte, and length.
+	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
@@ -72,7 +84,10 @@ public final class Unpacker {
 		return ret;
 	}
 	/**
-	 * 
+	 * Return a <code>String</code> representing the numeric value of the
+	 * input packed decimal byte array.  Optionally ignore invalid data 
+	 * in the byte array.
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
@@ -101,7 +116,10 @@ public final class Unpacker {
 		return ret;
 	}
 	/**
-	 * 
+	 * Return a <code>String</code> representing the numeric value of the
+	 * input packed decimal byte array, start byte, and length.  Return
+	 * value is of the requested precision.
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
@@ -121,6 +139,9 @@ public final class Unpacker {
 		return precisionPad(ret, precision);
 	}
 	/**
+	 * Return the two character <code>String</code> representing the value of
+	 * the input.
+	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
 	 * @param abyte An integer value representing the contents of a 
@@ -135,6 +156,8 @@ public final class Unpacker {
 		return ret.substring(ret.length()-2);
 	}
 	/**
+	 * Pad or truncate the input to a specified precision.
+	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
 	 * @param decString A <code>String</code> representing a valid
@@ -161,6 +184,60 @@ public final class Unpacker {
 			ret = decString.substring(decString.length()-precision);
 		else
 			ret = ZEROES.substring(0,precision-decString.length()) + decString;
+		return ret;
+	}
+	
+	/**
+	 * Convenience method to determine if a particular byte array
+	 * contains a positive or negative sign nibble.
+	 * @param packedDecimal The byte array to check.
+	 * @return <code>true</code> if the sign is positive, <code>false</code>
+	 * otherwise.
+	 * @throws @see {@link Unpacker#isPositive(byte)}
+	 */
+	public static boolean isPositive(byte[] packedDecimal)
+	{
+		return isPositive(packedDecimal[packedDecimal.length - 1]);
+	}
+	/**
+	 * Convenience method to determine if a particular byte value
+	 * contains a positive or negative sign nibble.
+	 * @param signByte The value of the byte to be checked.
+	 * @return <code>true</code> if the sign is positive, <code>false</code>
+	 * otherwise.
+	 * @throws IllegalArgumentException if an invalid sign nibble is 
+	 * detected.
+	 */
+	public static boolean isPositive(byte signByte)
+	{
+		int tsb = signByte & 0x0000000f; // strip to low order nibble
+		boolean ret = false;
+		switch (tsb) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				throw new IllegalArgumentException("Invalid sign byte: 0x" +
+						Integer.toHexString(signByte));
+			case 10:	// :TODO: These cases need to be checked with hardware specs.
+			case 11:	// They may be 'treated as ....'.
+			case 14:
+				throw new IllegalArgumentException("Invalid sign byte: 0x" +
+						Integer.toHexString(signByte));
+			case 12:
+			case 15:	// Not strictly true, hardware defines this as unsigned
+				ret = true;
+				break;
+			case 13:
+				ret = false;
+				break;
+		};
 		return ret;
 	}
 	/**
