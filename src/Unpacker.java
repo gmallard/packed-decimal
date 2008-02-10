@@ -3,7 +3,7 @@
  * (or slices of byte arrays) to <code>String</code>s representing
  * the numeric value contained in the array or slice.  The input 
  * arrays are assumed to be valid representations of packed decimal
- * data, including a low order sign nybble.  The sign nybble is assumed
+ * data, including a low order sign nibble.  The sign nibble is assumed
  * to signify a positive integral value.
  * 
  * This class is thread safe.
@@ -24,7 +24,7 @@ public final class Unpacker {
 	 * package.
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
 	 */
@@ -36,7 +36,7 @@ public final class Unpacker {
 	 * 
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @param precision The precision (number of decimal places) to return.
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
@@ -52,7 +52,7 @@ public final class Unpacker {
 	 * package.
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @param startByte The offset of the first byte to be converted.
 	 * @param numBytes The maximum number of bytes to convert.  <em>If this
 	 * value exceeds the array length, the return value is silently 
@@ -60,7 +60,7 @@ public final class Unpacker {
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
 	 * @throws IllegalArgumentException if the array slice contains non-numeric
-	 * nybble(s).
+	 * nibble(s).
 	 */
 	public static String getDecString(byte[] packedDecimal, int startByte, int numBytes)
 	{
@@ -75,7 +75,7 @@ public final class Unpacker {
 	 * 
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @param startByte The offset of the first byte to be converted.
 	 * @param numBytes The maximum number of bytes to convert.  <em>If this
 	 * value exceeds the array length, the return value is silently 
@@ -86,7 +86,7 @@ public final class Unpacker {
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
 	 * @throws IllegalArgumentException if the array slice contains non-numeric
-	 * nybble(s) and <code>checkNumeric</code> is true.
+	 * nibble(s) and <code>checkNumeric</code> is true.
 	 * @throws IllegalArgumentException if <code>startByte</code> is less than 0,
 	 * or <code>numBytes</code> is less than or equal to 0.
 	 */
@@ -104,7 +104,7 @@ public final class Unpacker {
 	 * 
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @param startByte The offset of the first byte to be converted.  This defines
 	 * the start of the array slice to be processed.
 	 * @param numBytes The maximum number of bytes to convert.
@@ -168,7 +168,7 @@ public final class Unpacker {
 	 * 
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @param startByte The offset of the first byte to be converted.
 	 * @param numBytes The maximum number of bytes to convert.  If this
 	 * value exceeds the array length, the return value is silently 
@@ -188,7 +188,7 @@ public final class Unpacker {
 		for (int nextByte = startByte; nextByte < endByte; nextByte++)
 			bldr.append(getHexStringForByte(packedDecimal[nextByte]));
 		//
-		bldr.setLength(bldr.length()-1);	// Chop sign nybble
+		bldr.setLength(bldr.length()-1);	// Chop sign nibble
 		return bldr.toString();
 	}
 	/**
@@ -196,7 +196,7 @@ public final class Unpacker {
 	 * 
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
-	 * The sign nybble is not inspected.
+	 * The sign nibble is not inspected.
 	 * @param startByte The offset of the first byte to be converted.  This defines
 	 * the start of the array slice to be processed.
 	 * @param numBytes The maximum number of bytes to convert.
