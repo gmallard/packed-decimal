@@ -28,6 +28,7 @@ public final class Unpacker {
 	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
@@ -62,10 +63,13 @@ public final class Unpacker {
 	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
+	 * <br /><br />
 	 * @param startByte The offset of the first byte to be converted.
+	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.  <em>If this
 	 * value exceeds the array length, the return value is silently 
 	 * truncated to the maximum possible length.</em>
@@ -79,8 +83,8 @@ public final class Unpacker {
 		String ret = unpk(packedDecimal, startByte, numBytes);
 		//
 		if (!ret.matches("[0-9]+"))
-			throw new IllegalArgumentException("-result- not numeric, is: " +
-					ret);
+			throw new IllegalArgumentException("<result> not numeric, is: <" +
+					ret + ">");
 		return ret;
 	}
 	/**
@@ -91,10 +95,13 @@ public final class Unpacker {
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
+	 * <br /><br />
 	 * @param startByte The offset of the first byte to be converted.
+	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.  <em>If this
 	 * value exceeds the array length, the return value is silently 
 	 * truncated to the maximum possible length.</em>
+	 * <br /><br />
 	 * @param checkNumeric Controls whether the result is checked for all
 	 * numeric data.  If true, and the result is non-numeric, an exception is
 	 * thrown.
@@ -123,9 +130,12 @@ public final class Unpacker {
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
+	 * <br /><br />
 	 * @param startByte The offset of the first byte to be converted.  This defines
 	 * the start of the array slice to be processed.
+	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.
+	 * <br /><br />
 	 * @param precision The precision (number of decimal places) to return.
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
@@ -144,6 +154,7 @@ public final class Unpacker {
 	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
+	 * <br /><br />
 	 * @param abyte An integer value representing the contents of a 
 	 * single byte of memory.
 	 * @return A <code>String</code> representation of the input 
@@ -160,8 +171,10 @@ public final class Unpacker {
 	 * <br /><br />
 	 * This method is also used internally by other methods in the
 	 * package.
+	 * <br /><br />
 	 * @param decString A <code>String</code> representing a valid
 	 * integral value.
+	 * <br /><br />
 	 * @param precision The precision (number of decimal places) to return.
 	 * @return A <code>String</code> representation of the input
 	 * value adjusted to the specified precision.
@@ -190,6 +203,7 @@ public final class Unpacker {
 	/**
 	 * Convenience method to determine if a particular byte array
 	 * contains a positive or negative sign nibble.
+	 * <br /><br />
 	 * @param packedDecimal The byte array to check.
 	 * @return <code>true</code> if the sign is positive, <code>false</code>
 	 * otherwise.
@@ -202,6 +216,7 @@ public final class Unpacker {
 	/**
 	 * Convenience method to determine if a particular byte value
 	 * contains a positive or negative sign nibble.
+	 * <br /><br />
 	 * @param signByte The value of the byte to be checked.
 	 * @return <code>true</code> if the sign is positive, <code>false</code>
 	 * otherwise.
@@ -242,14 +257,16 @@ public final class Unpacker {
 	}
 	/**
 	 * Private method to perform the basic unpacking of the data.
-	 * 
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
+	 * <br /><br />
 	 * @param startByte The offset of the first byte to be converted.
+	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.  If this
-	 * value exceeds the array length, the return value is silently 
-	 * truncated to the maximum possible length.
+	 * value exceeds the array length, the return value is <em>silently 
+	 * truncated</em> to the maximum possible length.
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
 	*/
@@ -270,12 +287,14 @@ public final class Unpacker {
 	}
 	/**
 	 * Private method to perform checks on client supplied integer values.
-	 * 
+	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid
 	 * packed decimal value.  The value is assumed to be positive.
 	 * The sign nibble is not inspected.
+	 * <br /><br />
 	 * @param startByte The offset of the first byte to be converted.  This defines
 	 * the start of the array slice to be processed.
+	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.
 	 * @throws IllegalArgumentException if <code>startByte</code> is less than
 	 * 0, or <code>numBytes</code> is less than or equal to 0.
