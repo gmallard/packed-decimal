@@ -269,6 +269,7 @@ public final class Unpacker {
 	 * truncated</em> to the maximum possible length.
 	 * @return A <code>String</code> representation of the input packed decimal
 	 * value.
+	 * @throws @see {@link Unpacker#checkArray(byte[], int, int)}
 	*/
 	private static String unpk(byte[] packedDecimal, int startByte, int numBytes)
 	{
