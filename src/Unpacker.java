@@ -297,8 +297,11 @@ public final class Unpacker {
 	 * the start of the array slice to be processed.
 	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.
-	 * @throws IllegalArgumentException if <code>startByte</code> is less than
-	 * 0, or <code>numBytes</code> is less than or equal to 0.
+	 * @throws IllegalArgumentException if:
+	 * <ul>
+	 * <li><code>startByte</code> is less than 0</li>
+	 * <li><code>numBytes</code> is less than or equal to 0</li>
+	 * </ul>
 	 */
 	private static void checkArray(byte[] packedDecimal, int startByte, int numBytes)
 	{
