@@ -162,7 +162,7 @@ public final class Unpacker {
 	 */
 	public static String getHexStringForByte(int abyte)
 	{
-		String ret =Integer.toHexString(abyte);
+		String ret = Integer.toHexString(abyte);
 		if (ret.length() == 1) ret = "0" + ret;
 		return ret.substring(ret.length()-2);
 	}
@@ -223,9 +223,9 @@ public final class Unpacker {
 	 * @throws IllegalArgumentException if an invalid sign nibble is 
 	 * detected.
 	 */
-	public static boolean isPositive(byte signByte)
+	public static boolean isPositive(int signByte)
 	{
-		int tsb = signByte & 0x0000000f; // strip to low order nibble
+		int tsb = signByte & 0x0f;
 		boolean ret = false;
 		switch (tsb) {
 			case 0:
@@ -297,7 +297,7 @@ public final class Unpacker {
 	 * the start of the array slice to be processed.
 	 * <br /><br />
 	 * @param numBytes The maximum number of bytes to convert.
-	 * @throws IllegalArgumentException if:
+	 * @throws IllegalArgumentException when:
 	 * <ul>
 	 * <li><code>startByte</code> is less than 0</li>
 	 * <li><code>numBytes</code> is less than or equal to 0</li>
