@@ -143,7 +143,8 @@ public final class Unpacker {
 	 * @throws IllegalArgumentException if <code>startByte</code> is less than 0,
 	 * or <code>numBytes</code> is less than or equal to 0.
 	 */
-	public static String getDecString(byte[] packedDecimal, int startByte, int numBytes, int precision)
+	public static String getDecString(byte[] packedDecimal, int startByte, 
+			int numBytes, int precision)
 	{
 		String ret = getDecString(packedDecimal, startByte, numBytes);
 		return precisionPad(ret, precision);
