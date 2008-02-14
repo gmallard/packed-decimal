@@ -5,7 +5,7 @@ import junit.framework.TestCase;
  * 
  */
 
-public class UnpackerTest extends TestCase {
+public class TestUnpacker extends TestCase {
 
 	public void testGetDecStringByteArrayInt() {
 		byte[] testa = {
