@@ -11,24 +11,24 @@ public class TestUnpacker extends TestCase {
 		byte[] testa = {
 			(byte)0x12, (byte)0x3c,	
 		};
-		assertEquals("t1", "3", Unpacker.getDecString(testa, 1));
-		assertEquals("t2", "23", Unpacker.getDecString(testa, 2));
-		assertEquals("t3", "123", Unpacker.getDecString(testa, 3));
-		assertEquals("t4", "0123", Unpacker.getDecString(testa, 4));
+		assertEquals("ta1", "3", Unpacker.getDecString(testa, 1));
+		assertEquals("ta2", "23", Unpacker.getDecString(testa, 2));
+		assertEquals("ta3", "123", Unpacker.getDecString(testa, 3));
+		assertEquals("ta4", "0123", Unpacker.getDecString(testa, 4));
 	}
 
 	public void testGetDecStringByteArrayIntInt() {
 		byte[] testa = {
 				(byte)0x12, (byte)0x3c,	
 			};
-		assertEquals("t1","3", Unpacker.getDecString(testa, 1, 1));
-		assertEquals("t2","123", Unpacker.getDecString(testa, 0, 2));
+		assertEquals("tb1","3", Unpacker.getDecString(testa, 1, 1));
+		assertEquals("tb2","123", Unpacker.getDecString(testa, 0, 2));
 		byte[] testb = {
 				(byte)0xa2, (byte)0x3c,	
 			};
 		try {
 			String result = Unpacker.getDecString(testb, 0, 2);
-			fail("Unexpected pass: " + result);
+			fail("tb Unexpected pass: " + result);
 		} catch(IllegalArgumentException iae) {
 			assertTrue("IAEX0", true);
 		}
@@ -43,7 +43,7 @@ public class TestUnpacker extends TestCase {
 			result = Unpacker.getDecString(testb, 0, 2, false);
 			assertEquals("test01", "a23", result);
 		} catch(IllegalArgumentException iae) {
-			fail("Unexpected fail: " + result);
+			fail("01 Unexpected fail: " + result);
 		}
 	}
 
@@ -62,9 +62,9 @@ public class TestUnpacker extends TestCase {
 	}
 
 	public void testGetHexStringForByte() {
-		assertEquals("Test01","01",Unpacker.getHexStringForByte(1));
-		assertEquals("Test02","0f",Unpacker.getHexStringForByte(0xf));
-		assertEquals("Test03","ab",Unpacker.getHexStringForByte(0xffffffab));
+		assertEquals("Testh01","01",Unpacker.getHexStringForByte(1));
+		assertEquals("Testh02","0f",Unpacker.getHexStringForByte(0xf));
+		assertEquals("Testh03","ab",Unpacker.getHexStringForByte(0xffffffab));
 	}
 
 	public void testPrecisionPad() {
@@ -73,7 +73,7 @@ public class TestUnpacker extends TestCase {
 		assertEquals("Tpp03", "021", Unpacker.precisionPad("21", 3));
 		try {
 			String result = Unpacker.precisionPad("a1", 3);
-			fail("No exception: " + "a1: " + result);
+			fail("Tpp No exception: " + "a1: " + result);
 		} catch(IllegalArgumentException iae) {
 			assertTrue("IAEOK", true);
 		}
@@ -88,7 +88,7 @@ public class TestUnpacker extends TestCase {
 		};
 		for (byte[] ba : positives)
 		{
-			assertTrue("Test" + ba[1], Unpacker.isPositive(ba));
+			assertTrue("TestPBA1" + ba[1], Unpacker.isPositive(ba));
 		}
 		byte[][] negatives = {
 				{(byte)0x00,(byte)0x0d,},
@@ -96,7 +96,7 @@ public class TestUnpacker extends TestCase {
 			};
 		for (byte[] ba : negatives)
 		{
-			assertFalse("Test" + ba[1], Unpacker.isPositive(ba));
+			assertFalse("TestPBA2" + ba[1], Unpacker.isPositive(ba));
 		}
 		byte[][] badvalues = {
 				{(byte)0x00,(byte)0x00,},
@@ -117,7 +117,7 @@ public class TestUnpacker extends TestCase {
 		{
 			try {
 				boolean test = Unpacker.isPositive(ba);
-				fail("Bad sign check: " + ba[1] + " " + test);
+				fail("PBA3 Bad sign check: " + ba[1] + " " + test);
 			} catch(IllegalArgumentException iae)
 			{
 				assertTrue("IEACHECK", true);
