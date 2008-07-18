@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 /**
  * 
  * @author Guy Allard
+ * @since 2008.02.09
  * 
  */
 
