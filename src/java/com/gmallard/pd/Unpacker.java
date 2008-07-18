@@ -1,3 +1,4 @@
+package com.gmallard.pd;
 /**
  * This class contains utility methods for converting byte arrays
  * (or slices of byte arrays) to <code>String</code> objects representing
