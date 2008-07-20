@@ -48,6 +48,7 @@ public final class Packer {
 		xlateTbl.put("9", new Byte((byte)0x09));
 	}
 	
+
 	public static byte[] pack(String anumber)
 	{
 		checkNumeric(anumber);

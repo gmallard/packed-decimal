@@ -223,61 +223,6 @@ public final class Unpacker {
 	}
 	
 	/**
-	 * Convenience method to determine if a particular byte array
-	 * contains a positive or negative sign nibble.
-	 * <br /><br />
-	 * @param packedDecimal The byte array to check.
-	 * @return <code>true</code> if the sign is positive, <code>false</code>
-	 * otherwise.
-	 * @throws @see {@link Unpacker#isPositive(byte)}
-	 */
-	public static boolean isPositive(byte[] packedDecimal)
-	{
-		return isPositive(packedDecimal[packedDecimal.length - 1]);
-	}
-	/**
-	 * Convenience method to determine if a particular byte value
-	 * contains a positive or negative sign nibble.
-	 * <br /><br />
-	 * @param signByte The value of the byte to be checked.
-	 * @return <code>true</code> if the sign is positive, <code>false</code>
-	 * otherwise.
-	 * @throws IllegalArgumentException if an invalid sign nibble is 
-	 * detected.
-	 */
-	public static boolean isPositive(int signByte)
-	{
-		int tsb = signByte & 0x0f;
-		boolean ret = false;
-		switch (tsb) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-				throw new IllegalArgumentException("Invalid sign byte: 0x" +
-						Integer.toHexString(signByte));
-			case 10:	// :TODO: These cases need to be checked with hardware specs.
-			case 11:	// They may be 'treated as ....'.
-			case 14:
-				throw new IllegalArgumentException("Invalid sign byte: 0x" +
-						Integer.toHexString(signByte));
-			case 12:
-			case 15:	// Not strictly true, hardware defines this as unsigned
-				ret = true;
-				break;
-			case 13:
-				ret = false;
-				break;
-		};
-		return ret;
-	}
-	/**
 	 * Private method to perform the basic unpacking of the data.
 	 * <br /><br />
 	 * @param packedDecimal A <code>byte[]</code> array containing a valid

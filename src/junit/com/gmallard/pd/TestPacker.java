@@ -102,16 +102,5 @@ public class TestPacker extends TestCase {
 			};
 		assertTrue("mceveneq", Arrays.equals(got, expected));
 	}
-	
-	
-	private void showBa(byte[] ba)
-	{
-		int i = 0;
-		for (byte b : ba)
-		{
-			int lhs = b >> 4;
-			int rhs = b & 0x0000000f;
-			System.out.println(i++ + " " + lhs + " " + rhs);
-		}
-	}
+
 }
