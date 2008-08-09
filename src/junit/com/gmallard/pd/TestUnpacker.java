@@ -21,14 +21,17 @@ This file is part of the Java packed decimal utilities project.
 */
 import junit.framework.TestCase;
 /**
- * 
+ * This class contains unit tests for the <code>Unpacker</code>
+ * class.
  * @author Guy Allard
  * @since 2008.02.09
  * 
  */
 
 public class TestUnpacker extends TestCase {
-
+	/**
+	 * Test the <code>getDecString</code> method signature 1.
+	 */
 	public void testGetDecStringByteArrayInt() {
 		byte[] testa = {
 			(byte)0x12, (byte)0x3c,	
@@ -38,7 +41,9 @@ public class TestUnpacker extends TestCase {
 		assertEquals("ta3", "123", Unpacker.getDecString(testa, 3));
 		assertEquals("ta4", "0123", Unpacker.getDecString(testa, 4));
 	}
-
+	/**
+	 * Test the <code>getDecString</code> method signature 2.
+	 */
 	public void testGetDecStringByteArrayIntInt() {
 		byte[] testa = {
 				(byte)0x12, (byte)0x3c,	
@@ -55,7 +60,10 @@ public class TestUnpacker extends TestCase {
 			assertTrue("IAEX0", true);
 		}
 	}
-
+	/**
+	 * Test the <code>getDecString</code> method for proper
+	 * exception generation.
+	 */
 	public void testGetDecStringByteArrayIntIntBoolean() {
 		byte[] testb = {
 				(byte)0xa2, (byte)0x3c,	
@@ -68,7 +76,9 @@ public class TestUnpacker extends TestCase {
 			fail("01 Unexpected fail: " + result);
 		}
 	}
-
+	/**
+	 * More tests of <code>getDecString</code>.
+	 */
 	public void testGetDecStringByteArrayIntIntInt() {
 		byte[] testb = {
 				(byte)0x12, (byte)0x3c,	
@@ -82,13 +92,17 @@ public class TestUnpacker extends TestCase {
 		assertEquals("ts4", "0123",
 				Unpacker.getDecString(testb, 0, 2, 4));
 	}
-
+	/**
+	 * Test the <code>getHexStringForByte</code> method.
+	 */
 	public void testGetHexStringForByte() {
 		assertEquals("Testh01","01",Unpacker.getHexStringForByte(1));
 		assertEquals("Testh02","0f",Unpacker.getHexStringForByte(0xf));
 		assertEquals("Testh03","ab",Unpacker.getHexStringForByte(0xffffffab));
 	}
-
+	/**
+	 * Test the <code>precisionPad</code> method.
+	 */
 	public void testPrecisionPad() {
 		assertEquals("Tpp01", "1", Unpacker.precisionPad("21", 1));
 		assertEquals("Tpp02", "21", Unpacker.precisionPad("21", 2));
@@ -100,5 +114,4 @@ public class TestUnpacker extends TestCase {
 			assertTrue("IAEOK", true);
 		}
 	}
-
-}
+} // end of class

@@ -88,12 +88,20 @@ public final class PDUtils {
 		};
 		return ret;
 	}
-
+	/**
+	 * Convenience method to allow clients to set the sign of a packed
+	 * decimal <code>byte[]</code> to something other than a positive
+	 * (0x0c) value.
+	 * @param packedDecimal The <code>byte[]</code> where the sign is to be set.
+	 * @param sign The sign value to set.  Use 0x0d for negative, or 0x0f for
+	 * unsigned. This value is <em>not</em> checked for validity.
+	 */
 	public static void setSign(byte[] packedDecimal, int sign)
 	{
 		int lastByte = packedDecimal[packedDecimal.length-1];
 		lastByte &= 0x000000f0;
-		lastByte |= sign;
+		int workSign = sign & 0x0000000f;	// throw away garbage if any
+		lastByte |= workSign;
 		packedDecimal[packedDecimal.length-1] =
 			(byte)lastByte;
 		return;

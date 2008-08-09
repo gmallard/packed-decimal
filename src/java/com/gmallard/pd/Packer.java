@@ -25,15 +25,22 @@ import java.util.HashMap;
 /**
  * This class contains utility methods for converting numeric values to
  * byte arrays in the format of classical packed data.
+ * <br /><br />
+ * Input values are assumed to be positive.  An exception will be thrown
+ * when this restriction is violated.
  * 
  * @author Guy Allard
  * @since 2008.07.18
  */
 public final class Packer {
-
+	/**
+	 * Map character strings to <code>Byte</code> values.
+	 */
 	private static Map<String,Byte> xlateTbl =
 		new HashMap<String,Byte>(10);
-	
+	/**
+	 * Initialize the character map.
+	 */
 	static
 	{
 		xlateTbl.put("0", new Byte((byte)0x00));
@@ -48,28 +55,35 @@ public final class Packer {
 		xlateTbl.put("9", new Byte((byte)0x09));
 	}
 	
-
+	/**
+	 * Convert a <code>String</code> representation of a number
+	 * to a valid <code>byte[]</code>.
+	 * @param anumber The value to convert.
+	 * @return A <code>byte[]</code> containing the packed decimal
+	 * representation of <code>anumber</code>.
+	 */
 	public static byte[] pack(String anumber)
 	{
+		// Check input is numeric.
 		checkNumeric(anumber);
-		//
+		// Figure length of the required byte array, and allocate it.
 		int balen = 1 + anumber.length()/2;
 		byte[] ret = new byte[balen];
-		//
+		// If only one byte is needed, this is s special case: handle it.
 		if (balen == 1)
 		{
 			ret[0] = xlateTbl.get(anumber).byteValue();
 			ret[0] <<= 4;
 			ret[0] |= (byte)0x0c;
-		} else {
+		} else { // OK, more than one byte is to be returned.
 			// Last character -> a special case because of the sign
-			// nibble.
-			int slen = anumber.length();
-			String oneChar = anumber.substring(slen-1);
-			ret[balen-1] = xlateTbl.get(oneChar).byteValue();
-			ret[balen-1] <<= 4;
-			ret[balen-1] |= 0x0c;
-			//
+			// nibble, so handle that first.
+			int slen = anumber.length();					// get length
+			String oneChar = anumber.substring(slen-1);		// grab last char
+			ret[balen-1] = xlateTbl.get(oneChar).byteValue(); // get corresponding
+			ret[balen-1] <<= 4;		// shift to correct nibble
+			ret[balen-1] |= 0x0c;	// or in the sign
+			// Convert from next to last character, down to the first.
 			for (int i = slen - 2, bai = balen -2; 
 				i >= 0; 
 				i-=2, bai--)
@@ -89,17 +103,34 @@ public final class Packer {
 		//
 		return ret;
 	}
-	
+	/**
+	 * Convenience method for converting <code>long</code> values to a
+	 * <code>byte[]</code>. 
+	 * @param anumber The value to convert.
+	 * @return A <code>byte[]</code> containing the packed decimal
+	 * representation of <code>anumber</code>.
+	 */
 	public static byte[] pack(long anumber)
 	{
 		return pack("" + anumber);
 	}
-
+	/**
+	 * Convenience method for converting <code>BigInteger</code> values to a
+	 * <code>byte[]</code>. 
+	 * @param anumber The value to convert.
+	 * @return A <code>byte[]</code> containing the packed decimal
+	 * representation of <code>anumber</code>.
+	 */
 	public static byte[] pack(BigInteger anumber)
 	{
 		return pack(anumber.toString());
 	}
-	
+	/**
+	 * Private method to check if a <code>String</code> is numeric.
+	 * @param astring The <code>String</code> to check.
+	 * @throws IllegalArgumentException if the input is not numeric or
+	 * the input is numeric and also negative.
+	 */
 	private static void checkNumeric(String astring)
 	{
 		char[] chars = new char[astring.length()];

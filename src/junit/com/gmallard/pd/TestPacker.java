@@ -22,13 +22,16 @@ This file is part of the Java packed decimal utilities project.
 import java.util.Arrays;
 import junit.framework.TestCase;
 /**
- * 
+ * This class contains unit tests for the <code>Packer</code>
+ * class.
  * @author Guy Allard
  * @since 2008.07.18 
  */
 
 public class TestPacker extends TestCase {
-
+	/**
+	 * Test conversion of single character numbers.
+	 */
 	public void testOneChar()
 	{
 		byte[][] expected = {
@@ -57,7 +60,10 @@ public class TestPacker extends TestCase {
 					expected[i++]));
 		}
 	}
-	
+	/**
+	 * Test conversion of very basic strings of more than a single
+	 * character.
+	 */
 	public void testMultCharBasic()
 	{
 		byte[] got = Packer.pack("12");
@@ -79,7 +85,10 @@ public class TestPacker extends TestCase {
 		//
 		assertTrue("tcbval123", Arrays.equals(got2, expected123));
 	}
-
+	/**
+	 * Test conversion of strings containing an odd number of
+	 * characters.
+	 */
 	public void testMultCharOdd()
 	{
 		byte[] got = Packer.pack("123456789");
@@ -91,7 +100,10 @@ public class TestPacker extends TestCase {
 		};
 		assertTrue("mcoddeq", Arrays.equals(got, expected));
 	}
-
+	/**
+	 * Test conversion of strings containing an even number of 
+	 * characters.
+	 */
 	public void testMultCharEven()
 	{
 		byte[] got = Packer.pack("12345678");
@@ -102,5 +114,5 @@ public class TestPacker extends TestCase {
 			};
 		assertTrue("mceveneq", Arrays.equals(got, expected));
 	}
+} // end of class
 
-}

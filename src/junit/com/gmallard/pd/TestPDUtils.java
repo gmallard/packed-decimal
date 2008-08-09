@@ -21,13 +21,17 @@ This file is part of the Java packed decimal utilities project.
 */
 import junit.framework.TestCase;
 /**
- * 
+ * This class contains unit tests for the <code>PDUtils</code>
+ * class. 
  * @author Guy Allard
  * @since 2008.07.20
  *
  */
 public class TestPDUtils extends TestCase {
-
+	/**
+	 * Test the <code>isPositive</code> method for correct results with
+	 * both valid and invalid sign values. 
+	 */
 	public void testIsPositiveByteArray() {
 		byte[][] positives = {
 			{(byte)0x00,(byte)0x0c,},
@@ -73,7 +77,10 @@ public class TestPDUtils extends TestCase {
 			}
 		}
 	}
-
+	/**
+	 * Test the <code>isPositive</code> method for correct results with
+	 * both valid and invalid sign values. 
+	 */
 	public void testIsPositiveInt() {
 		// The good
 		assertTrue("Test01", PDUtils.isPositive(0x0c));
@@ -98,7 +105,10 @@ public class TestPDUtils extends TestCase {
 			}
 		}
 	}
-
+	/**
+	 * Test the <code>setSign</code> method for correct results with
+	 * valid sign values. 
+	 */
 	public void testSignSet()
 	{
 		byte[] workBa = {
@@ -115,7 +125,10 @@ public class TestPDUtils extends TestCase {
 		PDUtils.setSign(workBa, PDUtils.NEGATIVE);
 		assertFalse("sneg", PDUtils.isPositive(workBa));
 	}
-	
+	/**
+	 * Private method used during debugging.
+	 * @param ba
+	 */
 	private void showBa(byte[] ba)
 	{
 		int i = 0;
@@ -126,5 +139,4 @@ public class TestPDUtils extends TestCase {
 			System.out.println(i++ + " " + lhs + " " + rhs);
 		}
 	}
-	
-}
+} // end of class
